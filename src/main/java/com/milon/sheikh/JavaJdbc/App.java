@@ -1,9 +1,8 @@
 package com.milon.sheikh.JavaJdbc;
+import java.util.List;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import com.milon.sheikh.JavaJdbc.db_connection.MySQLJDBCUtil;
+import com.milon.sheikh.JavaJdbc.beans.Candidates;
+import com.milon.sheikh.JavaJdbc.daos.CandidateDao;
 
 /**
  * @author [MILON SHEIKH]
@@ -11,10 +10,15 @@ import com.milon.sheikh.JavaJdbc.db_connection.MySQLJDBCUtil;
 
 public class App {
     public static void main( String[] args ){
-        try (Connection conn = MySQLJDBCUtil.getConnection()) {
-            System.out.println(String.format("Connected to database %s " + "successfully.", conn.getCatalog()));
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+    	
+    	 CandidateDao cd=new CandidateDao();
+    	 List<Candidates> candidateList =	cd.showAllCandidate();
+    	  for (Candidates candidate : candidateList) {
+    	        System.out.println(candidate.getCandidateId() + "\t" +
+    	                candidate.getCandidateFirstName() + "\t" +
+    	                candidate.getCandidateLastName() + "\t" +
+    	                candidate.getCandidatePhone() + "\t" +
+    	                candidate.getCandidateEmail());
+    	    }
     }
 }
