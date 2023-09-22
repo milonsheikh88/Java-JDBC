@@ -1,6 +1,7 @@
 package com.milon.sheikh.JavaJdbc.daos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,8 +24,13 @@ public class CandidateDao {
         try (Connection conn = MySQLJDBCUtil.getConnection()) {
             System.out.println(String.format("Connected to database %s " + "successfully.", conn.getCatalog()));
             
-            Statement stmt  = conn.createStatement();
-            ResultSet rs    = stmt.executeQuery(selsetSQL);
+            /// Using Statement
+//            Statement stmt  = conn.createStatement();
+//            ResultSet rs    = stmt.executeQuery(selsetSQL);
+            
+          /// Using PreparedStatement
+            PreparedStatement ps=conn.prepareStatement(selsetSQL);
+            ResultSet rs =ps.executeQuery();
             
            while (rs.next()) {
         	   
