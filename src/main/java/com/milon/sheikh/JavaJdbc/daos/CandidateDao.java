@@ -16,6 +16,9 @@ import com.milon.sheikh.JavaJdbc.db_connection.MySQLJDBCUtil;
 public class CandidateDao {
 	
 	 private  String selsetSQL = "SELECT * FROM candidates";
+	 private  String updateSQL = "UPDATE candidates "
+             + "SET last_name = ? "
+             + "WHERE id = ?";
 	
 
 	public List<Candidates>  showAllCandidate() {
@@ -50,6 +53,23 @@ public class CandidateDao {
         }
 		return candidateList;
 		
+	}
+
+
+	public int updateData() {
+		int rowAffected = 0;
+        try (Connection conn = MySQLJDBCUtil.getConnection()) {
+            System.out.println(String.format("Connected to database %s " + "successfully.", conn.getCatalog()));
+            
+            /// Using Statement
+            String sqlUpdate = "UPDATE candidates SET last_name = 'Sheikh' WHERE id = 2";
+            Statement stmt  = conn.createStatement();
+            rowAffected = stmt.executeUpdate(sqlUpdate);
+                  
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+		return rowAffected;
 	}
 
 }
