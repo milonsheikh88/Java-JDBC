@@ -14,11 +14,11 @@ import com.milon.sheikh.JavaJdbc.db_connection.MySQLJDBCUtil;
  * @author [MILON SHEIKH]
  */
 public class CandidateDao {
+	  Candidates candidate= new Candidates();
 	
 	 private  String selsetSQL = "SELECT * FROM candidates";
 	 private  String updateSQL = "UPDATE candidates SET last_name = ? WHERE id = ?";
 	
-
 	public List<Candidates>  showAllCandidate() {
 		List<Candidates> candidateList = new ArrayList<>();
 		
@@ -54,22 +54,22 @@ public class CandidateDao {
 	}
 
 
-	public int updateData() {
+	public int updateData(int id, String fName) {
 		int rowAffected = 0;
         try (Connection conn = MySQLJDBCUtil.getConnection()) {
             System.out.println(String.format("Connected to database %s " + "successfully.", conn.getCatalog()));
             
             /// Using Statement
-//            String sqlUpdate = "UPDATE candidates SET last_name = 'Sheikh' WHERE id = 2";
+//            String sqlUpdate = "UPDATE candidates SET last_name = '" + fName + "' WHERE id = '" + id + "'";
+//            System.out.println(sqlUpdate);
 //            Statement stmt  = conn.createStatement();
 //            rowAffected = stmt.executeUpdate(sqlUpdate);
             
             
             /// Using PreparedStatement
             PreparedStatement ps=conn.prepareStatement(updateSQL);
-            ps.setString(1, "Sheikh");
-            ps.setInt(2, 5);
-            
+            ps.setString(1, fName);
+            ps.setInt(2, id);
             rowAffected =ps.executeUpdate();
                   
         } catch (SQLException ex) {
@@ -77,5 +77,6 @@ public class CandidateDao {
         }
 		return rowAffected;
 	}
+
 
 }

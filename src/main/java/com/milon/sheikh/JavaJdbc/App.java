@@ -10,7 +10,7 @@ import com.milon.sheikh.JavaJdbc.daos.CandidateDao;
 
 public class App {
     public static void main( String[] args ){
-    	
+    	    	
     	 CandidateDao cd=new CandidateDao();
 //    	 List<Candidates> candidateList =	cd.showAllCandidate();
 //    	  for (Candidates candidate : candidateList) {
@@ -20,9 +20,9 @@ public class App {
 //    	                candidate.getCandidatePhone() + "\t" +
 //    	                candidate.getCandidateEmail());
 //    	    }
-    	  
-    	  
-    	int updateResult=  cd.updateData();
+    	 
+
+    	int updateResult=  cd.updateData(2,"Milon");
         System.out.println("updateResult===>> "+updateResult);  
     	  
     }
