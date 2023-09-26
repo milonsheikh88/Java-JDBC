@@ -1,12 +1,9 @@
 package com.milon.sheikh.JavaJdbc;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.milon.sheikh.JavaJdbc.beans.Candidates;
 import com.milon.sheikh.JavaJdbc.daos.CandidateDao;
-import com.milon.sheikh.JavaJdbc.db_connection.MySQLJDBCUtil;
 
 /**
  * @author [MILON SHEIKH]
