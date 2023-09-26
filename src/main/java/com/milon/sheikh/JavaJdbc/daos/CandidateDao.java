@@ -24,6 +24,11 @@ public class CandidateDao {
         try (Connection conn = MySQLJDBCUtil.getConnection()) {
             System.out.println(String.format("Connected to database %s " + "successfully.", conn.getCatalog()));
             
+            /// Using Statement
+//          Statement stmt  = conn.createStatement();
+//          ResultSet rs    = stmt.executeQuery(selsetSQL);
+            
+            
             /// Using PreparedStatement
             PreparedStatement ps=conn.prepareStatement(selsetSQL);
             ResultSet rs =ps.executeQuery();
