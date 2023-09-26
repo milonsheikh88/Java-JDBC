@@ -14,38 +14,22 @@ import com.milon.sheikh.JavaJdbc.db_connection.MySQLJDBCUtil;
  * @author [MILON SHEIKH]
  */
 public class CandidateDao {
-	  Candidates candidate= new Candidates();
-	
-	 private  String selsetSQL = "SELECT * FROM candidates";
-	
-	public List<Candidates>  showAllCandidate() {
-		List<Candidates> candidateList = new ArrayList<>();
-		
+	public int updateData(int id, String fName) {
+		int rowAffected = 0;
         try (Connection conn = MySQLJDBCUtil.getConnection()) {
             System.out.println(String.format("Connected to database %s " + "successfully.", conn.getCatalog()));
             
-            /// Using PreparedStatement
-            PreparedStatement ps=conn.prepareStatement(selsetSQL);
-            ResultSet rs =ps.executeQuery();
-            
-           while (rs.next()) {
-        	   
-        	   Candidates candidate = new Candidates();
-               candidate.setCandidateId(rs.getInt(1));
-               candidate.setCandidateFirstName(rs.getString(2));
-               candidate.setCandidateLastName(rs.getString(3));
-               candidate.setCandidateDOB(rs.getString(4));
-               candidate.setCandidatePhone(rs.getString(5));
-               candidate.setCandidateEmail(rs.getString(6));
+            /// Using Statement
+            String sqlUpdate = "UPDATE candidates SET last_name = '" + fName + "' WHERE id = '" + id + "'";
+            System.out.println(sqlUpdate);
+            Statement stmt  = conn.createStatement();
+            rowAffected = stmt.executeUpdate(sqlUpdate);
 
-               candidateList.add(candidate);     
-            }
-            
+                  
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-		return candidateList;
-		
+		return rowAffected;
 	}
 
 }
