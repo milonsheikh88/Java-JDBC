@@ -1,43 +1,31 @@
 package com.milon.sheikh.JavaJdbc.daos;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import com.milon.sheikh.JavaJdbc.beans.Candidates;
 import com.milon.sheikh.JavaJdbc.db_connection.MySQLJDBCUtil;
 
 /**
  * @author [MILON SHEIKH]
  */
 public class CandidateDao {
-	public int updateData(int id, String fName) {
-		int rowAffected = 0;
+	public int insertData(String firstName,String lastName,Date dob, String email, String phone) {
+		int idinsertId = 0;
         try (Connection conn = MySQLJDBCUtil.getConnection()) {
             System.out.println(String.format("Connected to database %s " + "successfully.", conn.getCatalog()));
             
             /// Using Statement
-//            String updateSQL = "UPDATE candidates SET last_name = '" + fName + "' WHERE id = '" + id + "'";
-//            System.out.println(updateSQL);
-//            Statement stmt  = conn.createStatement();
-//            rowAffected = stmt.executeUpdate(sqlUpdate);
-            
-       	  String updateSQL = "UPDATE candidates SET last_name = ? WHERE id = ?";
-       	  
-          /// Using PreparedStatement
-          PreparedStatement ps=conn.prepareStatement(updateSQL);
-          ps.setString(1, fName);
-          ps.setInt(2, id);
-          rowAffected =ps.executeUpdate();
-
+            String insertSQL = "insert into candidates "
+					+"(first_name,last_name,dob,phone,email) "
+					+"values ('" + firstName + "','" + lastName + "','" + dob + "','" + phone + "','" + email + "')";
+            Statement stmt  = conn.createStatement();
+            idinsertId = stmt.executeUpdate(insertSQL);
                   
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-		return rowAffected;
+		return idinsertId;
 	}
 
 }
