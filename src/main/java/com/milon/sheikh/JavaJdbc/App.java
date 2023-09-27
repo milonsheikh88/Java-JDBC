@@ -12,7 +12,7 @@ public class App {
     public static void main( String[] args ){
     	  
    	 CandidateDao cd=new CandidateDao();
-     int count = cd.deleteData(137);
+     int count = cd.deleteData(136);
 
      System.out.println(String.format("A new candidate with id %d has been deleted.",count));
   

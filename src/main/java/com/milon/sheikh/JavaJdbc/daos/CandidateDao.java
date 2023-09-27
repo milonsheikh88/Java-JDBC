@@ -19,9 +19,15 @@ public class CandidateDao {
             System.out.println(String.format("Connected to database %s " + "successfully.", conn.getCatalog()));
             
             /// Using Statement
-            String deleteSQL = "DELETE FROM candidates WHERE id = '" + id + "'";
-            Statement stmt  = conn.createStatement();
-            rowCount = stmt.executeUpdate(deleteSQL);
+//            String deleteSQL = "DELETE FROM candidates WHERE id = '" + id + "'";
+//            Statement stmt  = conn.createStatement();
+//            rowCount = stmt.executeUpdate(deleteSQL);
+            
+          /// Using PreparedStatement
+            PreparedStatement ps=conn.prepareStatement("DELETE FROM candidates WHERE id =?");
+            ps.setInt(1, id);
+            rowCount=  ps.executeUpdate();
+           
   
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
